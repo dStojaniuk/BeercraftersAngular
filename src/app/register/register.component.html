@@ -41,14 +41,14 @@
                   class="help-block">Wpisz poprawne hasło!</span>
               </div>
         </div>
-        <span
-        *ngIf="!registerForm.valid && registerForm.touched"
-        class="help-block">Wpisz poprawne dane!</span>
         <hr>
         <div class="col text-center">
           <button class="btn btn-secondary btn-block" type="submit">Zarejestruj</button>
         </div>
       </form>
+      <div class="col text-center">
+        <a class="nav-link" routerLink="/login">Masz konto? Zaloguj się!</a>
+      </div>
     </div>
   </div>
 </div>

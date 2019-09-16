@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  baseUrl = 'https://localhost:5001/users/';
+  baseUrl = 'https://localhost:5001/auth/register/';
   values: any;
 
   constructor(private http: HttpClient) { }
@@ -25,7 +25,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.registerForm.reset();
+    // this.registerForm.reset();
+    console.log(this.registerForm.value.userData);
     this.register(this.registerForm.value.userData);
   }
 

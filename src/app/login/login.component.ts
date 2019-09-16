@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +9,14 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  baseUrl = 'https://localhost:5001/auth/login/';
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       userData: new FormGroup({
-        username: new FormControl(null, [Validators.required]),
+        email: new FormControl(null, [Validators.required]),
         password: new FormControl(null, [Validators.required]),
       })
     });
@@ -20,6 +24,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.loginForm);
-    this.loginForm.reset();
+    this.login(this.loginForm.value.userData);
+  }
+
+  private login(model: any) {
+    this.http.post(this.baseUrl, model).subscribe(error => {
+      console.log(error);
+    });
   }
 }
