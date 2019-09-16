@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-register',
@@ -9,10 +10,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  baseUrl = 'https://localhost:5001/users/';
-  values: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -25,13 +24,19 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.registerForm.reset();
     this.register(this.registerForm.value.userData);
+    this.registerForm.reset();
+  }
+
+  cancel() {
+    this.registerForm.reset();
   }
 
   private register(model: any) {
-    this.http.post(this.baseUrl, model).subscribe(error => {
-      console.log(error);
+    this.authService.register(model).subscribe(() => {
+      this.alertify.success('Zarejestrowano użytkownika');
+    }, error => {
+      this.alertify.error(error);
     });
   }
 }

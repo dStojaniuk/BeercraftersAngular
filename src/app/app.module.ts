@@ -3,20 +3,24 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { NavComponent } from './nav/nav.component';
 import { ValuesComponent } from './values/values.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
+import { AlertifyService } from './services/alertify.service';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    NavComponent,
     ValuesComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AlertifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
