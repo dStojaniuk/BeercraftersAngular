@@ -2,7 +2,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+  <div class="collapse navbar-collapse px-5" id="navbarTogglerDemo01">
     <a class="navbar-brand" href="#">Beercrafters</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item">
@@ -15,7 +15,7 @@
           <a class="nav-link" routerLink="/users">Użytkownicy</a>
         </li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right" *ngIf="!loggedIn()">
       <li routerLinkActive="active">
         <a class="nav-link" routerLink="/login">Logowanie</a>
       </li>
@@ -23,5 +23,15 @@
         <a class="nav-link" routerLink="/register">Rejestracja</a>
       </li>
   </ul>
+  <div *ngIf="loggedIn()" class="nav-item dropdown px-5" appDropdown #r="appDropdown" >
+    <a style="cursor: pointer;" class="text-light dropdown-toggle" data-toggle="dropdown" >
+      Witaj {{ authService.decodedToken?.unique_name | titlecase }}
+    </a>
+    <div class="dropdown-menu" [ngClass]="{'show':r.isOpen}" >
+      <a class="dropdown-item" href="#">Ustawienia</a>
+      <a class="dropdown-item" href="#">Zoabaczymy</a>
+      <a class="dropdown-item" href="#" (click)="logout()">Wyloguj</a>
+    </div>
+  </div>
   </div>
 </nav>
