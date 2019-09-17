@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="form-group col">
+      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="name">Nazwa przepisu</label>
+            <input type="text" id="name" formControlName="name" class="form-control">
+            <span *ngIf="!recipeForm.get('userData.name').valid && recipeForm.get('userData.name').touched"
+              class="help-block">
+              <span *ngIf="recipeForm.get('userData.name').errors['required']">To pole jest wymagane!</span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="type">Styl</label>
+            <input type="text" id="type" formControlName="type" class="form-control">
+            <span *ngIf="!recipeForm.get('userData.type').valid && recipeForm.get('userData.type').touched"
+              class="help-block">
+              <span *ngIf="recipeForm.get('userData.type').errors['required']">To pole jest wymagane!</span>
+            </span>
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label for="originalGravity">Ekstrakt początkowy</label>
+              <input type="text" id="originalGravity" formControlName="originalGravity" class="form-control">
+              <span *ngIf="!recipeForm.get('userData.originalGravity').valid && recipeForm.get('userData.originalGravity').touched"
+                class="help-block">Wpisz poprawne hasło!</span>
+            </div>
+            <div class="form-group col">
+              <label for="finalGravity">Ekstrakt końcowy</label>
+              <input type="text" id="finalGravity" formControlName="finalGravity" class="form-control">
+              <span *ngIf="!recipeForm.get('userData.finalGravity').valid && recipeForm.get('userData.finalGravity').touched"
+                class="help-block">Wpisz poprawne hasło!</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label for="alcohol">Alkohol</label>
+              <input type="text" id="alcohol" formControlName="alcohol" class="form-control">
+              <span *ngIf="!recipeForm.get('userData.alcohol').valid && recipeForm.get('userData.alcohol').touched"
+                class="help-block">Wpisz poprawne hasło!</span>
+            </div>
+            <div class="form-group col">
+              <label for="ibu">IBU</label>
+              <input type="text" id="ibu" formControlName="ibu" class="form-control">
+              <span *ngIf="!recipeForm.get('userData.ibu').valid && recipeForm.get('userData.ibu').touched"
+                class="help-block">Wpisz poprawne hasło!</span>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="col text-center">
+          <button class="btn btn-secondary btn-block" type="submit">Zapisz przepis</button>
+          <button class="btn btn-light btn-block" type="button">Wyczyść</button>
+        </div>
+      </form>
+      <div class="col text-center">
+        <a class="nav-link" routerLink="/login">Masz konto? Zaloguj się!</a>
+      </div>
+    </div>
+  </div>
+</div>

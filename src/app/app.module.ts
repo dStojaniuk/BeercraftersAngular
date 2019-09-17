@@ -12,6 +12,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { AlertifyService } from './services/alertify.service';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { RecipeCardComponent } from './recipes/recipe-card/recipe-card.component';
+import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { BeerStylesComponent } from './beer-styles/beer-styles.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { MembersComponent } from './members/members.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +27,14 @@ import { DropdownDirective } from './shared/dropdown.directive';
     ValuesComponent,
     LoginComponent,
     RegisterComponent,
-    DropdownDirective
+    DropdownDirective,
+    RecipeCardComponent,
+    RecipeDetailsComponent,
+    RecipeEditComponent,
+    BeerStylesComponent,
+    RecipesComponent,
+    MembersComponent,
+    MemberCardComponent
   ],
   imports: [
     BrowserModule,

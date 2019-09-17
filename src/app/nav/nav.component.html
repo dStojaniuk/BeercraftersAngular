@@ -3,13 +3,13 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse px-5" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#">Beercrafters</a>
+    <a class="navbar-brand" routerLink="/">Beercrafters</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Przepisy</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/recipes">Przepisy</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Rodzaje</a>
+        <a class="nav-link" routerLink="/styles">Rodzaje</a>
       </li>
       <li class="nav-item">
           <a class="nav-link" routerLink="/users">Użytkownicy</a>
@@ -29,8 +29,8 @@
     </a>
     <div class="dropdown-menu" [ngClass]="{'show':r.isOpen}" >
       <a class="dropdown-item" href="#">Ustawienia</a>
-      <a class="dropdown-item" href="#">Zoabaczymy</a>
-      <a class="dropdown-item" href="#" (click)="logout()">Wyloguj</a>
+      <a class="dropdown-item" routerLink="/edit">Utwórz przepis</a>
+      <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Wyloguj</a>
     </div>
   </div>
   </div>
