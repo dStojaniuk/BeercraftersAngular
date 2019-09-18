@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { ValuesComponent } from './values/values.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +23,6 @@ import { MemberCardComponent } from './members/member-card/member-card.component
   declarations: [
     AppComponent,
     NavComponent,
-    ValuesComponent,
     LoginComponent,
     RegisterComponent,
     DropdownDirective,

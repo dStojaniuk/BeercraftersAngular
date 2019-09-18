@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { WebService } from 'src/app/services/web.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -10,9 +10,20 @@ import { WebService } from 'src/app/services/web.service';
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
+  value: any;
   recipeForm: FormGroup;
+  modelek =
+    {
+      userId: this.authService.decodedToken.sub,
+      name: this.value,
+      type: this.value,
+      originalGravity: this.value,
+      finalGravity: this.value,
+      alcohol: this.value,
+      ibu: this.value,
+    };
 
-constructor(private alertify: AlertifyService, private webService: WebService) { }
+constructor(public authService: AuthService, private alertify: AlertifyService, private webService: WebService) { }
 
   ngOnInit() {
     this.recipeForm = new FormGroup({
@@ -28,15 +39,32 @@ constructor(private alertify: AlertifyService, private webService: WebService) {
   }
 
   onSubmit() {
-    this.create(this.recipeForm.value.userData);
+    this.modelek.name = this.recipeForm.value.userData.name;
+    this.modelek.type = this.recipeForm.value.userData.type;
+    this.modelek.originalGravity = this.recipeForm.value.userData.originalGravity;
+    this.modelek.finalGravity = this.recipeForm.value.userData.finalGravity;
+    this.modelek.alcohol = this.recipeForm.value.userData.alcohol;
+    this.modelek.ibu = this.recipeForm.value.userData.ibu;
+    this.create1(this.modelek);
+    this.create2(this.recipeForm.value.userData);
     // this.recipeForm.reset();
   }
 
-  private create(model: any) {
-    this.webService.create(model).subscribe(() => {
+  private create1(model: any) {
+    this.webService.create1(model).subscribe(() => {
       this.alertify.success('Utworzono przepis!');
     }, error => {
       this.alertify.error(error);
+      console.log(error);
     });
+  }
+
+  private create2(model: any) {
+      this.webService.create2(model).subscribe(() => {
+        this.alertify.success('Utworzono przepis!');
+      }, error => {
+        this.alertify.error(error);
+        this.alertify.error(error);
+      });
 }
 }

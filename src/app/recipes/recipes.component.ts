@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../models/recipe';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recipes',
@@ -7,29 +8,21 @@ import { Recipe } from '../models/recipe';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  recipes: Recipe[] = [
-    new Recipe(
-      1,
-      'pierwszy'
-    ), new Recipe(
-      2,
-      'drugi'
-    ), new Recipe(
-      3,
-      'trzeci'
-    ), new Recipe(
-      4,
-      'czwarty'
-    ), new Recipe(
-      5,
-      'piąty'
-    )
-   ];
+  recipes: Recipe[];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-
+    this.getRecipes();
   }
 
+  private getRecipes() {
+    this.http.get('https://localhost:5001/recipe').subscribe((response: Recipe[]) => {
+      this.recipes = response;
+      console.log(response);
+
+    }, error => {
+      console.log(error);
+    });
+  }
 }

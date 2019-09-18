@@ -1,3 +1,6 @@
-export class Recipe {
-  constructor(public id: number, public name: string) {}
+export interface Recipe {
+  name: string;
+  type: string;
+  originalGravity: number;
+  ibu: number;
 }
