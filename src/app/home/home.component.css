@@ -1,0 +1,9 @@
+.jumbotron {
+  background-image: url("../../assets/home-cover.jpeg");
+  background-size: cover;
+  height: 500px;
+}
+
+h1, p {
+  color: #fff;
+}
