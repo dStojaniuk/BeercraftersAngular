@@ -1,27 +1,27 @@
 <div class="container-fluid mb-4">
-  <div class="mb-4"><h1>The Dealer</h1></div>
+  <div class="mb-4"><h1>{{ recipe.name }}</h1></div>
   <div class="row">
       <div class="col-3 border">
           <h3>Opis piwa</h3>
             <div>
               <strong>Styl: </strong>
-              <p>American Pale Ale</p>
+              <p>{{ recipe.type }}</p>
             </div>
             <div>
               <strong>Ekstrakt początkowy: </strong>
-              <p>12 Plato</p>
+              <p>{{ recipe.originalGravity }} Plato</p>
             </div>
             <div>
               <strong>Ekstrakt końcowy: </strong>
-              <p>3.5 Plato</p>
+              <p>--- Plato</p>
             </div>
             <div>
               <strong>Alkohol: </strong>
-              <p>4,7 % obj.</p>
+              <p>--- % obj.</p>
             </div>
             <div>
               <strong>IBU: </strong>
-              <p>30</p>
+              <p>{{ recipe.ibu }}</p>
           </div>
       </div>
       <div class="col border ml-3 mr-2">

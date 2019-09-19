@@ -28,7 +28,7 @@
       Witaj {{ authService.decodedToken?.unique_name | titlecase }}
     </a>
     <div class="dropdown-menu" [ngClass]="{'show':r.isOpen}" >
-      <a class="dropdown-item" href="#">Ustawienia</a>
+      <a class="dropdown-item" routerLink="/home">Ustawienia</a>
       <a class="dropdown-item" routerLink="/edit">Utwórz przepis</a>
       <a class="dropdown-item" routerLink="/recipes">Twoje przepisy</a>
       <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Wyloguj</a>
