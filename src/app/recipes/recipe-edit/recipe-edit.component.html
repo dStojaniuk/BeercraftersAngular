@@ -24,27 +24,21 @@
               <label for="originalGravity">Ekstrakt początkowy</label>
               <input type="text" id="originalGravity" formControlName="originalGravity" class="form-control">
               <span *ngIf="!recipeForm.get('userData.originalGravity').valid && recipeForm.get('userData.originalGravity').touched"
-                class="help-block">Wpisz poprawne hasło!</span>
+                class="help-block">Wpisz poprawną liczbę!</span>
             </div>
             <div class="form-group col">
               <label for="finalGravity">Ekstrakt końcowy</label>
               <input type="text" id="finalGravity" formControlName="finalGravity" class="form-control">
-              <span *ngIf="!recipeForm.get('userData.finalGravity').valid && recipeForm.get('userData.finalGravity').touched"
-                class="help-block">Wpisz poprawne hasło!</span>
             </div>
           </div>
           <div class="row">
             <div class="form-group col">
               <label for="alcohol">Alkohol</label>
               <input type="text" id="alcohol" formControlName="alcohol" class="form-control">
-              <span *ngIf="!recipeForm.get('userData.alcohol').valid && recipeForm.get('userData.alcohol').touched"
-                class="help-block">Wpisz poprawne hasło!</span>
             </div>
             <div class="form-group col">
               <label for="ibu">IBU</label>
               <input type="text" id="ibu" formControlName="ibu" class="form-control">
-              <span *ngIf="!recipeForm.get('userData.ibu').valid && recipeForm.get('userData.ibu').touched"
-                class="help-block">Wpisz poprawne hasło!</span>
             </div>
           </div>
         </div>
