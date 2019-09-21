@@ -15,6 +15,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'options', component: MemberEditComponent },
   { path: 'users', component: MembersComponent },
+  { path: 'users/recipes', component: RecipesComponent },
   { path: 'recipes', component: RecipesComponent},
   { path: 'recipes/details/:id', component: RecipeDetailsComponent },
   { path: 'detail', component: RecipeDetailsComponent },

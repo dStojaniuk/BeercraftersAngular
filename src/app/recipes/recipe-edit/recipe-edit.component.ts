@@ -45,12 +45,10 @@ constructor(public authService: AuthService, private alertify: AlertifyService, 
     this.modelek.finalGravity = this.recipeForm.value.userData.finalGravity;
     this.modelek.alcohol = this.recipeForm.value.userData.alcohol;
     this.modelek.ibu = this.recipeForm.value.userData.ibu;
-    this.create1(this.modelek);
-    this.create2(this.recipeForm.value.userData);
-    // this.recipeForm.reset();
+    this.create(this.modelek);
   }
 
-  private create1(model: any) {
+  private create(model: any) {
     this.webService.create1(model).subscribe(() => {
       this.alertify.success('Utworzono przepis!');
     }, error => {
@@ -58,13 +56,4 @@ constructor(public authService: AuthService, private alertify: AlertifyService, 
       console.log(error);
     });
   }
-
-  private create2(model: any) {
-      this.webService.create2(model).subscribe(() => {
-        this.alertify.success('Utworzono przepis!');
-      }, error => {
-        this.alertify.error(error);
-        this.alertify.error(error);
-      });
-}
 }
