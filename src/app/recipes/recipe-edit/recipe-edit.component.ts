@@ -14,7 +14,7 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   modelek =
     {
-      userId: this.authService.decodedToken.sub,
+      userId: this.authService.currentUser.id,
       name: this.value,
       type: this.value,
       originalGravity: this.value,
@@ -55,5 +55,9 @@ constructor(public authService: AuthService, private alertify: AlertifyService, 
       this.alertify.error(error);
       console.log(error);
     });
+  }
+
+  onClear() {
+    this.recipeForm.reset();
   }
 }

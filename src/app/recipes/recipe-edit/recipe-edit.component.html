@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <div class="form-group col">
       <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
@@ -45,12 +45,9 @@
         <hr>
         <div class="col text-center">
           <button class="btn btn-secondary btn-block" type="submit">Zapisz przepis</button>
-          <button class="btn btn-light btn-block" type="button">Wyczyść</button>
+          <button class="btn btn-light btn-block" type="button" (click)="onClear()">Wyczyść</button>
         </div>
       </form>
-      <div class="col text-center">
-        <a class="nav-link" routerLink="/login">Masz konto? Zaloguj się!</a>
-      </div>
     </div>
   </div>
 </div>

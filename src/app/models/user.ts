@@ -3,4 +3,7 @@ export interface User {
     email: string;
     username: string;
     recipesId: any;
+    description: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

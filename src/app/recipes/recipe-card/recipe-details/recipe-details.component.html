@@ -1,11 +1,13 @@
-<div class="container-fluid mb-4">
-  <div class="mb-4"><h1>{{ recipe.name }}</h1></div>
+<div class="container mt-4">
   <div class="row">
-      <div class="col-3 border">
+<div class="container-fluid mb-4">
+  <div class="mb-4"><h1>{{ this.recipe.name| titlecase }}</h1></div>
+  <div class="row">
+      <div class="col-3 mb-3 border">
           <h3>Opis piwa</h3>
             <div>
               <strong>Styl: </strong>
-              <p>{{ recipe.type }}</p>
+              <p>{{ recipe.type | titlecase }}</p>
             </div>
             <div>
               <strong>Ekstrakt początkowy: </strong>
@@ -13,11 +15,11 @@
             </div>
             <div>
               <strong>Ekstrakt końcowy: </strong>
-              <p>--- Plato</p>
+              <p>{{ recipe.finalGravity }} Plato</p>
             </div>
             <div>
               <strong>Alkohol: </strong>
-              <p>--- % obj.</p>
+              <p>{{ recipe.alcohol }} % obj.</p>
             </div>
             <div>
               <strong>IBU: </strong>
@@ -60,4 +62,5 @@
       </div>
     </div>
   </div>
-<hr>
+</div>
+</div>

@@ -23,7 +23,7 @@
     </ul>
     <div *ngIf="loggedIn()" class="nav-item dropdown px-5" appDropdown #r="appDropdown">
       <a style="cursor: pointer;" class="text-light dropdown-toggle" data-toggle="dropdown">
-        Witaj {{ authService.decodedToken?.unique_name | titlecase }}
+        Witaj {{ authService.currentUser.username | titlecase }}
       </a>
       <div class="dropdown-menu" [ngClass]="{'show':r.isOpen}">
         <a class="dropdown-item" routerLink="/options">Ustawienia</a>

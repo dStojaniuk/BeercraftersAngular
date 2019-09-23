@@ -3,5 +3,7 @@ export interface Recipe {
   name: string;
   type: string;
   originalGravity: number;
+  finalGravity: number;
+  alcohol: number;
   ibu: number;
 }

@@ -6,19 +6,20 @@
         <div class="card-body">
           <div>
             <strong>Ilość przepisów:</strong>
-            <p>21</p>
+            <p>{{ this.user.recipesId.length }}</p>
           </div>
           <div>
             <strong>Ostatnio aktywny:</strong>
-            <p>21.09.19</p>
+            <p>{{ this.user.updatedAt | date:'mediumDate' }}</p>
           </div>
           <div>
             <strong>Zarejestrowany:</strong>
-            <p>03.08.19</p>
+            <p>{{ this.user.createdAt | date:'mediumDate' }}</p>
           </div>
         </div>
         <div class="card-footer">
           <button type="submit" class="btn btn-secondary btn-block">Zapisz zmiany</button>
+          <button type="button" class="btn btn-danger btn-block" (click)="onUserDelete()">Usuń użytkownika</button>
         </div>
       </div>
     </div>
