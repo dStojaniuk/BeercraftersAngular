@@ -1,0 +1,14 @@
+<div class="card animate">
+  <div class="card-body p-1">
+    <h5 class="card-title text-center mb-1">{{ recipe.name | titlecase }}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Styl: {{ recipe.type | titlecase }}</li>
+    <li class="list-group-item">Ekstrakt: {{ recipe.originalGravity }} Blg</li>
+    <li class="list-group-item">IBU: {{ recipe.ibu }}</li>
+  </ul>
+  <div class="card-body text-center">
+    <a class="nav-link" routerLink="/recipes/details/{{ recipe.id }}/">details</a>
+    <a class="nav-link" routerLink="/recipes">member</a>
+  </div>
+</div>
