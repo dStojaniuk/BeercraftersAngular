@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h4>Informacje</h4>
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <strong>Ilość przepisów:</strong>
+            <p>{{ member.recipesId.length }}</p>
+          </div>
+          <div>
+            <strong>Ostatnio aktywny:</strong>
+            <p>{{ member.updatedAt | date:'short' }}</p>
+          </div>
+          <div>
+            <strong>Zarejestrowany:</strong>
+            <p>{{ member.createdAt | date:'short' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8 mt-5">
+      <div class="tab-panel">
+        <p>Użytkownik: {{ member.username }}</p>
+        <p>Opis: {{ member.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

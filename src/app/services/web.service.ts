@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,16 @@ export class WebService {
 
 constructor(private http: HttpClient) { }
 
+
+
+
   create1(model: any) {
-      return this.http.post(this.baseUrl + 'userrecipe/create/', model);
-    }
-  create2(model: any) {
-      return this.http.post(this.baseUrl + 'recipe/create/', model);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.post(this.baseUrl + 'userrecipe/', model, options);
     }
 }

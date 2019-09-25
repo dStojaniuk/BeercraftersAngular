@@ -28,7 +28,7 @@
       <div class="dropdown-menu" [ngClass]="{'show':r.isOpen}">
         <a class="dropdown-item" routerLink="/options">Ustawienia</a>
         <a class="dropdown-item" routerLink="/edit">Utwórz przepis</a>
-        <a class="dropdown-item" routerLink="/users/recipes">Twoje przepisy</a>
+        <a class="dropdown-item" routerLink="/users/recipes/{{ authService.currentUser.id }}">Twoje przepisy</a>
         <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Wyloguj</a>
       </div>
     </div>

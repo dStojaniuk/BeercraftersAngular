@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { WebService } from 'src/app/services/web.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -12,6 +13,16 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RecipeEditComponent implements OnInit {
   value: any;
   recipeForm: FormGroup;
+  materials = {
+    name: '1',
+    count: 1
+  };
+
+  hops = {
+    name,
+    count: 2
+  };
+
   modelek =
     {
       userId: this.authService.currentUser.id,
@@ -21,9 +32,13 @@ export class RecipeEditComponent implements OnInit {
       finalGravity: this.value,
       alcohol: this.value,
       ibu: this.value,
+      materials: this.value,
+      hops: this.value,
+      yeast: this.value
     };
 
-constructor(public authService: AuthService, private alertify: AlertifyService, private webService: WebService) { }
+constructor(public authService: AuthService, private alertify: AlertifyService,
+            private webService: WebService, private http: HttpClient) { }
 
   ngOnInit() {
     this.recipeForm = new FormGroup({
@@ -45,11 +60,22 @@ constructor(public authService: AuthService, private alertify: AlertifyService, 
     this.modelek.finalGravity = this.recipeForm.value.userData.finalGravity;
     this.modelek.alcohol = this.recipeForm.value.userData.alcohol;
     this.modelek.ibu = this.recipeForm.value.userData.ibu;
-    this.create(this.modelek);
+    // this.modelek.materials = {name: '1', count: 1};
+    // this.modelek.hops = {name: '2', count: 2};
+    // this.modelek.yeast = {name: '3', count: 3};
+    this.createRecipe(this.modelek);
   }
 
-  private create(model: any) {
-    this.webService.create1(model).subscribe(() => {
+  private createRecipe(body: any) {
+    const header = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    const url = 'https://localhost:5001/userrecipe/';
+
+    this.http.post(url, body, header).subscribe(() => {
       this.alertify.success('Utworzono przepis!');
     }, error => {
       this.alertify.error(error);

@@ -19,6 +19,7 @@ import { MembersComponent } from './members/members.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { HomeComponent } from './home/home.component';
+import { MemberDetailsComponent } from './members/member-card/member-details/member-details.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HomeComponent } from './home/home.component';
     MembersComponent,
     MemberCardComponent,
     MemberEditComponent,
-    HomeComponent
+    HomeComponent,
+    MemberDetailsComponent
   ],
   imports: [
     BrowserModule,

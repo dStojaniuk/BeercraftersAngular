@@ -6,6 +6,6 @@
     <li class="list-group-item">Przepisy: {{ member.recipesId.length }}</li>
   </ul>
   <div class="card-body text-center">
-      <a class="nav-link" routerLink="/users">details</a>
+      <a routerLink="/users/details/{{ member.id }}" class="btn btn-secondary">Szczegóły</a>
   </div>
 </div>

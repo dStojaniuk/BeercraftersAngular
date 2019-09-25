@@ -10,22 +10,22 @@
           </div>
           <div>
             <strong>Ostatnio aktywny:</strong>
-            <p>{{ this.user.updatedAt | date:'mediumDate' }}</p>
+            <p>{{ this.user.updatedAt | date:'short' }}</p>
           </div>
           <div>
             <strong>Zarejestrowany:</strong>
-            <p>{{ this.user.createdAt | date:'mediumDate' }}</p>
+            <p>{{ this.user.createdAt | date:'short' }}</p>
           </div>
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn btn-secondary btn-block">Zapisz zmiany</button>
+          <button type="submit" class="btn btn-secondary btn-block" (click)="onSubmit()">Zapisz zmiany</button>
           <button type="button" class="btn btn-danger btn-block" (click)="onUserDelete()">Usuń użytkownika</button>
         </div>
       </div>
     </div>
     <div class="col-sm-8">
       <div class="tab-panel">
-        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="editForm">
           <div formGroupName="userData">
               <div class="form-group">
                   <h4>Nazwa użytkownika</h4>
@@ -43,7 +43,6 @@
               formControlName="description"
               class="form-control"></textarea>
             </div>
-
           </div>
         </form>
       </div>

@@ -15,10 +15,10 @@ export class RecipeDetailsComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.params.id;
-    this.getRecipes(id);
+    this.getRecipe(id);
   }
 
-  private getRecipes(id: any) {
+  private getRecipe(id: any) {
     this.http.get('https://localhost:5001/recipe/' + id + '/').subscribe((response: Recipe) => {
       this.recipe = response;
       // console.log(response);

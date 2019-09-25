@@ -8,6 +8,7 @@ import { RecipeDetailsComponent } from './recipes/recipe-card/recipe-details/rec
 import { MembersComponent } from './members/members.component';
 import { HomeComponent } from './home/home.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberDetailsComponent } from './members/member-card/member-details/member-details.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'options', component: MemberEditComponent },
   { path: 'users', component: MembersComponent },
-  { path: 'users/recipes', component: RecipesComponent },
+  { path: 'users/details/:id', component: MemberDetailsComponent },
+  { path: 'users/recipes/:id', component: RecipesComponent },
   { path: 'recipes', component: RecipesComponent},
   { path: 'recipes/details/:id', component: RecipeDetailsComponent },
   { path: 'detail', component: RecipeDetailsComponent },
