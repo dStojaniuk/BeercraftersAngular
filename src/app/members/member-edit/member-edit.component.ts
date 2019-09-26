@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -44,16 +44,12 @@ export class MemberEditComponent implements OnInit {
   }
 
   private saveChanges(model: any) {
-    // const options = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //   }),
-    //   body: {
-    //     Id: this.user.id,
-    //     Description: model.description,
-    //     Username: model.username
-    //   }
-    // };
+    const header = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      })
+    };
 
     const body = {
       Id: this.user.id,
@@ -61,7 +57,7 @@ export class MemberEditComponent implements OnInit {
       Username: model.username
     };
 
-    this.http.put(this.url, body).subscribe(response => {
+    this.http.put(this.url, body, header).subscribe(response => {
       console.log(response);
     }, error => {
       console.log(error);
@@ -72,6 +68,7 @@ export class MemberEditComponent implements OnInit {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }),
       body: {
         UserId: model

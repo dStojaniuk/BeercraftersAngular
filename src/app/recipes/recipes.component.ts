@@ -16,11 +16,11 @@ export class RecipesComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params.id;
 
-    if (id == null) {
+    if (id === undefined) {
       this.getRecipes();
+    } else {
+      this.getUserRecipes(id);
     }
-
-    this.getUserRecipes(id);
   }
 
   private getRecipes() {

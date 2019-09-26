@@ -70,6 +70,7 @@ constructor(public authService: AuthService, private alertify: AlertifyService,
     const header = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       })
     };
 
