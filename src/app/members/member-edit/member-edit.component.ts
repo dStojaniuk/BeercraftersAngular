@@ -33,7 +33,6 @@ export class MemberEditComponent implements OnInit {
 
   onSubmit() {
     this.saveChanges(this.editForm.value.userData);
-    this.alertify.success('Zapisano zmiany!');
   }
 
   onUserDelete() {
@@ -41,7 +40,6 @@ export class MemberEditComponent implements OnInit {
 
     localStorage.clear();
     this.router.navigate(['/home']);
-    this.alertify.warning('Usunięto użutkownika!');
   }
 
   private saveChanges(model: any) {
@@ -58,8 +56,13 @@ export class MemberEditComponent implements OnInit {
       Username: model.username
     };
 
-    this.http.put(this.url, body, header).subscribe(error => {
-      this.alertify.error('Wystąpił błąd');
+    this.http.put(this.url, body, header).subscribe(response => {
+      if (response == null) {
+        this.alertify.success('Zapisano zmiany');
+      }
+    }, error => {
+      // console.log(error);
+      this.alertify.error('Wystąpił błąd!');
     });
   }
 
@@ -74,8 +77,10 @@ export class MemberEditComponent implements OnInit {
       }
     };
 
-    this.http.delete(this.url, options).subscribe(error => {
-      this.alertify.error('Wystąpił błąd');
+    this.http.delete(this.url, options).subscribe(response => {
+      this.alertify.error('Usunięto użytkownika');
+    }, error => {
+      this.alertify.error('Wystąpił błąd!');
     });
   }
 }

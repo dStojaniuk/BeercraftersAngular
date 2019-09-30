@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit {
 
   private login(model: any) {
     this.authService.login(model).subscribe(next => {
-      this.alertify.success('Zalogowano!');
+      this.alertify.success('Zalogowano');
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error('Wystąpił błąd!');
     }, () => {
       this.router.navigate(['/users']);
     });
