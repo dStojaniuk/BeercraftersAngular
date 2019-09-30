@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecipesComponent implements OnInit {
   recipes: Recipe[];
+  isUserRecipes: boolean;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -20,6 +21,7 @@ export class RecipesComponent implements OnInit {
       this.getRecipes();
     } else {
       this.getUserRecipes(id);
+      this.isUserRecipes = true;
     }
   }
 

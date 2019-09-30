@@ -1,38 +1,41 @@
-<div class="container mt-4">
+<div class="container mt-3">
   <div class="row">
       <div class="col-10">
-          <h1>{{ this.recipe.name| titlecase }}</h1>
+          <h2>{{ recipe?.name | titlecase }}</h2>
       </div>
-      <div class="col-2 mt-2">
-          <a routerLink="" class="btn btn-secondary mr-1">Edytuj</a>
-          <a routerLink="" class="btn btn-danger">Usuń</a>
+      <div class="col-2" *ngIf="isUserLoggedRecipe">
+        <button class="btn btn-secondary mr-1" (click)="onRecipeEdit()">Edytuj</button>
+        <button class="btn btn-danger" (click)="onRecipeDelete()">Usuń</button>
+      </div>
+      <div class="col-2 mt-3" *ngIf="!isUserLoggedRecipe">
+          <h5>Piwowar: {{ member?.username | titlecase }}</h5>
       </div>
 <div class="container-fluid mb-4">
   <div class="row">
-      <div class="col-3 mb-3 border">
+      <div class="col-3 mb-3 border rounded">
           <h3>Opis piwa</h3>
             <div>
               <strong>Styl: </strong>
-              <p>{{ recipe.type | titlecase }}</p>
+              <p>{{ recipe?.type | titlecase }}</p>
             </div>
             <div>
               <strong>Ekstrakt początkowy: </strong>
-              <p>{{ recipe.originalGravity }} Plato</p>
+              <p>{{ recipe?.originalGravity }} Plato</p>
             </div>
             <div>
               <strong>Ekstrakt końcowy: </strong>
-              <p>{{ recipe.finalGravity }} Plato</p>
+              <p>{{ recipe?.finalGravity }} Plato</p>
             </div>
             <div>
               <strong>Alkohol: </strong>
-              <p>{{ recipe.alcohol }} % obj.</p>
+              <p>{{ recipe?.alcohol }} % obj.</p>
             </div>
             <div>
               <strong>IBU: </strong>
-              <p>{{ recipe.ibu }}</p>
+              <p>{{ recipe?.ibu }}</p>
           </div>
       </div>
-      <div class="col border ml-3 mr-2">
+      <div class="col border ml-3 mr-2 rounded">
           <h3>Receptura</h3>
           <strong>Zasyp</strong>
           <p>Beer is my passion. </p>
@@ -47,7 +50,7 @@
           <p>Beer is my passion. </p>
           <br>
       </div>
-      <div class="col border">
+      <div class="col border rounded">
           <h3>Procedura</h3>
           <h5><span class="label label-danger">Zacieranie</span></h5>
           <p>Beer is my passion. </p>

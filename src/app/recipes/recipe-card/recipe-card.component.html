@@ -7,8 +7,8 @@
     <li class="list-group-item">Ekstrakt: {{ recipe.originalGravity }} Blg</li>
     <li class="list-group-item">IBU: {{ recipe.ibu }}</li>
   </ul>
-  <div class="card-body">
+  <div class="card-body text-center">
     <a routerLink="/recipes/details/{{ recipe.id }}/" class="btn btn-secondary mr-2">Szczegóły</a>
-    <a routerLink="/users/details/{{ recipe.userId }}" class="btn btn-secondary">Użytkownik</a>
+    <a *ngIf="!isUserRecipes" routerLink="/users/details/{{ recipe.userId }}" class="btn btn-secondary">Użytkownik</a>
   </div>
 </div>

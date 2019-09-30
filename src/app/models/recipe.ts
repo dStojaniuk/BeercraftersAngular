@@ -1,6 +1,6 @@
 export interface Recipe {
-  id: string;
-  userId: string;
+  id: number;
+  userId: number;
   name: string;
   type: string;
   originalGravity: number;

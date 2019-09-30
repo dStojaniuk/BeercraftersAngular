@@ -36,10 +36,12 @@ export class MemberEditComponent implements OnInit {
   }
 
   onUserDelete() {
-    this.removeMember(this.auth.currentUser.id);
+    this.alertify.confirm('Czy na pewno chcesz usunąć konto?', () => {
+      this.removeMember(this.auth.currentUser.id);
 
-    localStorage.clear();
-    this.router.navigate(['/home']);
+      localStorage.clear();
+      this.router.navigate(['/home']);
+    });
   }
 
   private saveChanges(model: any) {
