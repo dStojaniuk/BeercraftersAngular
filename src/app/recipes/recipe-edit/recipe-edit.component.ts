@@ -79,12 +79,12 @@ constructor(public authService: AuthService, private alertify: AlertifyService,
     this.http.post(url, body, header).subscribe(() => {
       this.alertify.success('Utworzono przepis!');
     }, error => {
-      this.alertify.error(error);
-      console.log(error);
+      this.alertify.error(error.message);
     });
   }
 
   onClear() {
     this.recipeForm.reset();
+    this.alertify.message('Wyczyszczono pola');
   }
 }

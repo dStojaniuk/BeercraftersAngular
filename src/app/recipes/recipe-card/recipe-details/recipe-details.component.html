@@ -1,7 +1,13 @@
 <div class="container mt-4">
   <div class="row">
+      <div class="col-10">
+          <h1>{{ this.recipe.name| titlecase }}</h1>
+      </div>
+      <div class="col-2 mt-2">
+          <a routerLink="" class="btn btn-secondary mr-1">Edytuj</a>
+          <a routerLink="" class="btn btn-danger">Usuń</a>
+      </div>
 <div class="container-fluid mb-4">
-  <div class="mb-4"><h1>{{ this.recipe.name| titlecase }}</h1></div>
   <div class="row">
       <div class="col-3 mb-3 border">
           <h3>Opis piwa</h3>

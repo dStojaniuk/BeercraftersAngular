@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -17,7 +18,7 @@ export class MemberEditComponent implements OnInit {
   user: User;
   url = 'https://localhost:5001/users/';
 
-  constructor(private http: HttpClient, private router: Router, private auth: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, private auth: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.user = this.auth.currentUser;
@@ -31,16 +32,16 @@ export class MemberEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Zapisano!');
     this.saveChanges(this.editForm.value.userData);
+    this.alertify.success('Zapisano zmiany!');
   }
 
   onUserDelete() {
-    console.log('Usunięto użytkownika!');
     this.removeMember(this.auth.currentUser.id);
 
     localStorage.clear();
     this.router.navigate(['/home']);
+    this.alertify.warning('Usunięto użutkownika!');
   }
 
   private saveChanges(model: any) {
@@ -57,10 +58,8 @@ export class MemberEditComponent implements OnInit {
       Username: model.username
     };
 
-    this.http.put(this.url, body, header).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log(error);
+    this.http.put(this.url, body, header).subscribe(error => {
+      this.alertify.error('Wystąpił błąd');
     });
   }
 
@@ -75,10 +74,8 @@ export class MemberEditComponent implements OnInit {
       }
     };
 
-    this.http.delete(this.url, options).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log(error);
+    this.http.delete(this.url, options).subscribe(error => {
+      this.alertify.error('Wystąpił błąd');
     });
   }
 }
