@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { AlertifyService } from 'src/app/services/alertify.service';
-import { WebService } from 'src/app/services/web.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
@@ -11,59 +10,40 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
-  value: any;
   recipeForm: FormGroup;
-  materials = {
-    name: '1',
-    count: 1
-  };
 
-  hops = {
-    name,
-    count: 2
-  };
-
-  modelek =
-    {
-      userId: this.authService.currentUser.id,
-      name: this.value,
-      type: this.value,
-      originalGravity: this.value,
-      finalGravity: this.value,
-      alcohol: this.value,
-      ibu: this.value,
-      materials: this.value,
-      hops: this.value,
-      yeast: this.value
-    };
-
-constructor(public authService: AuthService, private alertify: AlertifyService,
-            private webService: WebService, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, public authService: AuthService, private alertify: AlertifyService,
+              private http: HttpClient) { }
 
   ngOnInit() {
-    this.recipeForm = new FormGroup({
-      userData: new FormGroup({
-        name: new FormControl(null, [Validators.required]),
-        type: new FormControl(null, [Validators.required]),
-        originalGravity: new FormControl(null, [Validators.required]),
-        finalGravity: new FormControl(null, [Validators.required]),
-        alcohol: new FormControl(null, [Validators.required]),
-        ibu: new FormControl(null, [Validators.required])
-      })
+    const yyeast = this.fb.group({
+      name: '',
+      count: ''
     });
+
+    this.recipeForm = this.fb.group({
+      name: '',
+      type: '',
+      originalGravity: '',
+      finalGravity: '',
+      alcohol: '',
+      ibu: '',
+      materials: this.fb.array([]),
+      hops: this.fb.array([]),
+      yeast: yyeast
+    });
+
+    this.addMaterial();
+    this.addHop();
   }
 
   onSubmit() {
-    this.modelek.name = this.recipeForm.value.userData.name;
-    this.modelek.type = this.recipeForm.value.userData.type;
-    this.modelek.originalGravity = this.recipeForm.value.userData.originalGravity;
-    this.modelek.finalGravity = this.recipeForm.value.userData.finalGravity;
-    this.modelek.alcohol = this.recipeForm.value.userData.alcohol;
-    this.modelek.ibu = this.recipeForm.value.userData.ibu;
-    // this.modelek.materials = {name: '1', count: 1};
-    // this.modelek.hops = {name: '2', count: 2};
-    // this.modelek.yeast = {name: '3', count: 3};
-    this.createRecipe(this.modelek);
+    const modelToSend = {
+      ...this.recipeForm.value,
+      userId: this.authService.currentUser.id
+    };
+
+    this.createRecipe(modelToSend);
   }
 
   private createRecipe(body: any) {
@@ -81,10 +61,47 @@ constructor(public authService: AuthService, private alertify: AlertifyService,
     }, error => {
       this.alertify.error(error.message);
     });
+
+    this.alertify.success('Zapisano');
+    console.log(this.recipeForm.value);
   }
 
   onClear() {
     this.recipeForm.reset();
     this.alertify.message('Wyczyszczono pola');
+  }
+
+  get materialsForm() {
+    return this.recipeForm.get('materials') as FormArray;
+  }
+
+  addMaterial() {
+    const material = this.fb.group({
+      name: [],
+      count: []
+    });
+
+    this.materialsForm.push(material);
+  }
+
+  deleteMaterial(i) {
+    this.materialsForm.removeAt(i);
+  }
+
+  get hopsForm() {
+    return this.recipeForm.get('hops') as FormArray;
+  }
+
+  addHop() {
+    const hops = this.fb.group({
+      name: [],
+      count: []
+    });
+
+    this.hopsForm.push(hops);
+  }
+
+  deleteHop(i) {
+    this.hopsForm.removeAt(i);
   }
 }
