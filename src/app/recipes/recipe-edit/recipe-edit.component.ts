@@ -16,11 +16,6 @@ export class RecipeEditComponent implements OnInit {
               private http: HttpClient) { }
 
   ngOnInit() {
-    const yyeast = this.fb.group({
-      name: '',
-      count: ''
-    });
-
     this.recipeForm = this.fb.group({
       name: '',
       type: '',
@@ -30,11 +25,17 @@ export class RecipeEditComponent implements OnInit {
       ibu: '',
       materials: this.fb.array([]),
       hops: this.fb.array([]),
-      yeast: yyeast
+      yeast: '',
+      mashing: this.fb.array([]),
+      brewing: this.fb.array([]),
+      fermentation: this.fb.array([]),
     });
 
     this.addMaterial();
     this.addHop();
+    this.addMashing();
+    this.addBrewing();
+    this.addFermentation();
   }
 
   onSubmit() {
@@ -63,7 +64,7 @@ export class RecipeEditComponent implements OnInit {
     });
 
     this.alertify.success('Zapisano');
-    console.log(this.recipeForm.value);
+    console.log(body);
   }
 
   onClear() {
@@ -77,8 +78,9 @@ export class RecipeEditComponent implements OnInit {
 
   addMaterial() {
     const material = this.fb.group({
+      count: [],
       name: [],
-      count: []
+      time: 0
     });
 
     this.materialsForm.push(material);
@@ -94,8 +96,9 @@ export class RecipeEditComponent implements OnInit {
 
   addHop() {
     const hops = this.fb.group({
+      count: [],
       name: [],
-      count: []
+      time: 0
     });
 
     this.hopsForm.push(hops);
@@ -103,5 +106,59 @@ export class RecipeEditComponent implements OnInit {
 
   deleteHop(i) {
     this.hopsForm.removeAt(i);
+  }
+
+  get mashingForm() {
+    return this.recipeForm.get('mashing') as FormArray;
+  }
+
+  addMashing() {
+    const mashing = this.fb.group({
+      count: [],
+      name: [],
+      time: 0
+    });
+
+    this.mashingForm.push(mashing);
+  }
+
+  deleteMashing(i) {
+    this.mashingForm.removeAt(i);
+  }
+
+  get brewingForm() {
+    return this.recipeForm.get('brewing') as FormArray;
+  }
+
+  addBrewing() {
+    const brewing = this.fb.group({
+      count: [],
+      name: [],
+      time: []
+    });
+
+    this.brewingForm.push(brewing);
+  }
+
+  deleteBrewing(i) {
+    this.brewingForm.removeAt(i);
+  }
+
+  get fermentationForm() {
+    return this.recipeForm.get('fermentation') as FormArray;
+  }
+
+  addFermentation() {
+    const fermentation = this.fb.group({
+      count: [],
+      name: [],
+      time: []
+    });
+
+    this.fermentationForm.push(fermentation);
+  }
+
+  deleteFermentation(i) {
+    this.fermentationForm.removeAt(i);
   }
 }

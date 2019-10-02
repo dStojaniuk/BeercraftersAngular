@@ -1,113 +1,175 @@
 <div class="container mt-4">
-  <div class="row">
-    <div class="form-group col">
-      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <h3>Opis piwa</h3>
-          <label for="name">Nazwa przepisu</label>
-          <input type="text" id="name" formControlName="name" class="form-control">
-          <span *ngIf="!recipeForm.get('name').valid && recipeForm.get('name').touched" class="help-block">
-            <span *ngIf="recipeForm.get('name').errors['required']">To pole jest wymagane!</span>
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="type">Styl</label>
-          <input type="text" id="type" formControlName="type" class="form-control">
-          <span *ngIf="!recipeForm.get('type').valid && recipeForm.get('type').touched" class="help-block">
-            <span *ngIf="recipeForm.get('type').errors['required']">To pole jest wymagane!</span>
-          </span>
-        </div>
-        <div class="row">
-          <div class="form-group col">
-            <label for="originalGravity">Ekstrakt początkowy</label>
-            <input type="text" id="originalGravity" formControlName="originalGravity" class="form-control">
-            <span *ngIf="!recipeForm.get('originalGravity').valid && recipeForm.get('originalGravity').touched"
-              class="help-block">Wpisz poprawną liczbę!</span>
-          </div>
-          <div class="form-group col">
-            <label for="finalGravity">Ekstrakt końcowy</label>
-            <input type="text" id="finalGravity" formControlName="finalGravity" class="form-control">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col">
-            <label for="alcohol">Alkohol</label>
-            <input type="text" id="alcohol" formControlName="alcohol" class="form-control">
-          </div>
-          <div class="form-group col">
-            <label for="ibu">IBU</label>
-            <input type="text" id="ibu" formControlName="ibu" class="form-control">
-          </div>
-        </div>
-        <hr>
-        <h3>Receptura</h3>
-        <label for="name">Zasyp</label>
-        <div class="row">
-          <div class="col" formArrayName="materials">
-            <div class="row" style="margin-top: 10px;" *ngFor="let material of materialsForm.controls; let i = index"
-              [formGroupName]="i">
-              <div class="form-group col">
-                <input type="text" class="form-control" formControlName="name">
+      <form  [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <h3 class="text-center">Opis piwa</h3>
+        <div class="border rounded p-3">
+            <div class="form-group">
+                <label for="name">Nazwa przepisu</label>
+                <input type="text" id="name" formControlName="name" class="form-control">
+                <span *ngIf="!recipeForm.get('name').valid && recipeForm.get('name').touched" class="help-block">
+                  <span *ngIf="recipeForm.get('name').errors['required']">To pole jest wymagane!</span>
+                </span>
               </div>
-              <div class="form-group col">
-                <input type="number" class="form-control" formControlName="count">
+              <div class="form-group">
+                <label for="type">Styl</label>
+                <input type="text" id="type" formControlName="type" class="form-control">
+                <span *ngIf="!recipeForm.get('type').valid && recipeForm.get('type').touched" class="help-block">
+                  <span *ngIf="recipeForm.get('type').errors['required']">To pole jest wymagane!</span>
+                </span>
               </div>
-              <div class="form-group col">
-                <button type="button" class="btn btn-danger" (click)="deleteMaterial(i)">X</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <button type="button" class="btn btn-success" (click)="addMaterial()">Dodaj składnik</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <label class="mt-3" for="name">Chmiele</label>
-        <div class="row">
-            <div class="col" formArrayName="hops">
-              <div class="row" style="margin-top: 10px;" *ngFor="let hop of hopsForm.controls; let i = index"
-                [formGroupName]="i">
+              <div class="row">
                 <div class="form-group col">
-                  <input type="text" class="form-control" formControlName="name">
+                  <label for="originalGravity">Ekstrakt początkowy</label>
+                  <input type="text" id="originalGravity" formControlName="originalGravity" class="form-control">
+                  <span *ngIf="!recipeForm.get('originalGravity').valid && recipeForm.get('originalGravity').touched"
+                    class="help-block">Wpisz poprawną liczbę!</span>
                 </div>
                 <div class="form-group col">
-                  <input type="number" class="form-control" formControlName="count">
-                </div>
-                <div class="form-group col">
-                  <button type="button" class="btn btn-danger" (click)="deleteHop(i)">X</button>
+                  <label for="finalGravity">Ekstrakt końcowy</label>
+                  <input type="text" id="finalGravity" formControlName="finalGravity" class="form-control">
                 </div>
               </div>
               <div class="row">
-                <div class="col">
-                  <button type="button" class="btn btn-success" (click)="addHop()">Dodaj składnik</button>
+                <div class="form-group col">
+                  <label for="alcohol">Alkohol</label>
+                  <input type="text" id="alcohol" formControlName="alcohol" class="form-control">
+                </div>
+                <div class="form-group col">
+                  <label for="ibu">IBU</label>
+                  <input type="text" id="ibu" formControlName="ibu" class="form-control">
                 </div>
               </div>
-            </div>
-          </div>
-        <label class="mt-3" for="name">Drożdże</label>
-        <div class="row">
-            <div class="col" formGroupName="yeast">
-              <div class="row" style="margin-top: 10px;">
-                <div class="form-group col">
-                  <input type="text" class="form-control" formControlName="name">
-                </div>
-                <div class="form-group col">
-                  <input type="number" class="form-control" formControlName="count">
-                </div>
-                <div class="form-group col">
+        </div>
+        <h3 class="text-center mt-3">Receptura</h3>
+        <div class="border rounded p-3">
+            <label for="name">Zasyp | nazwa kg</label>
+            <div class="row">
+              <div class="col" formArrayName="materials">
+                <div class="row" *ngFor="let material of materialsForm.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="form-group col-6">
+                    <input type="text" class="form-control" formControlName="name">
                   </div>
+                  <div class="form-group col">
+                    <input type="number" class="form-control" formControlName="count">
+                  </div>
+                  <div class="form-group col">
+                    <button type="button" class="btn btn-danger" (click)="deleteMaterial(i)">X</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button type="button" class="btn btn-success" (click)="addMaterial()">Dodaj składnik</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        <hr>
-        <h3>Procedura</h3>
-        <hr>
-        <div class="col text-center">
+            <label class="mt-3" for="name">Chmiele | nazwa g</label>
+            <div class="row">
+                <div class="col" formArrayName="hops">
+                  <div class="row" *ngFor="let hop of hopsForm.controls; let i = index"
+                    [formGroupName]="i">
+                    <div class="form-group col-6">
+                      <input type="text" class="form-control" formControlName="name">
+                    </div>
+                    <div class="form-group col">
+                      <input type="number" class="form-control" formControlName="count">
+                    </div>
+                    <div class="form-group col">
+                      <button type="button" class="btn btn-danger" (click)="deleteHop(i)">X</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-success" (click)="addHop()">Dodaj chmiel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label for="yeast" class="mt-3">Drożdże | nazwa</label>
+                  <div class="form-group col-6">
+                  <input type="text" id="yeast" formControlName="yeast" class="form-control">
+                </div>
+                </div>
+        </div>
+        <h3 class="text-center mt-3">Procedura</h3>
+        <div class="border rounded p-3">
+            <label for="name">Zacieranie | stopnie minuty</label>
+            <div class="row">
+              <div class="col" formArrayName="mashing">
+                <div class="row" *ngFor="let mashing of mashingForm.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="form-group col-6">
+                    <input type="text" class="form-control" formControlName="name">
+                  </div>
+                  <div class="form-group col">
+                    <input type="number" class="form-control" formControlName="count">
+                  </div>
+                  <div class="form-group col">
+                    <button type="button" class="btn btn-danger" (click)="deleteMashing(i)">X</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button type="button" class="btn btn-success" (click)="addMashing()">Dodaj etap</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label class="mt-3" for="name">Warzenie | g nazwa czas</label>
+            <div class="row">
+                <div class="col" formArrayName="brewing">
+                  <div class="row" *ngFor="let brewing of brewingForm.controls; let i = index"
+                    [formGroupName]="i">
+                    <div class="form-group col">
+                      <input type="number" class="form-control" formControlName="count">
+                    </div>
+                    <div class="form-group col">
+                      <input type="text" class="form-control" formControlName="name">
+                    </div>
+                    <div class="form-group col">
+                      <input type="number" class="form-control" formControlName="time">
+                    </div>
+                    <div class="form-group col">
+                      <button type="button" class="btn btn-danger" (click)="deleteBrewing(i)">X</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-success" (click)="addBrewing()">Dodaj chmiel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <label class="mt-3" for="name">Fermentacja | g nazwa czas</label>
+              <div class="row">
+                  <div class="col" formArrayName="fermentation">
+                    <div class="row" *ngFor="let fermentation of fermentationForm.controls; let i = index"
+                      [formGroupName]="i">
+                      <div class="form-group col">
+                        <input type="number" class="form-control" formControlName="count">
+                      </div>
+                      <div class="form-group col">
+                        <input type="text" class="form-control" formControlName="name">
+                      </div>
+                      <div class="form-group col">
+                        <input type="number" class="form-control" formControlName="time">
+                      </div>
+                      <div class="form-group col">
+                        <button type="button" class="btn btn-danger" (click)="deleteFermentation(i)">X</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <button type="button" class="btn btn-success" (click)="addFermentation()">Dodaj składnik</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </div>
+        <div class="col text-center mt-4 mb-4">
           <button class="btn btn-secondary btn-block" type="submit">Zapisz przepis</button>
           <button class="btn btn-light btn-block" type="button" (click)="onClear()">Wyczyść</button>
         </div>
       </form>
     </div>
-  </div>
-</div>

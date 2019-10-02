@@ -73,6 +73,7 @@ export class RecipeDetailsComponent implements OnInit {
 
     this.http.delete('https://localhost:5001/userrecipe/', options).subscribe(response => {
       this.alertify.error('Usunięto przepis');
+      this.router.navigate(['/recipes']);
     }, error => {
       this.alertify.error('Wystąpił błąd!');
     });

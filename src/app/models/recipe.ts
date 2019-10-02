@@ -1,3 +1,5 @@
+import { Ingredient } from './ingredient';
+
 export interface Recipe {
   id: number;
   userId: number;
@@ -7,4 +9,10 @@ export interface Recipe {
   finalGravity: number;
   alcohol: number;
   ibu: number;
+  materials: Ingredient[];
+  hops: Ingredient[];
+  yeast: string;
+  mashing: Ingredient[];
+  brewing: Ingredient[];
+  fermentation: Ingredient[];
 }

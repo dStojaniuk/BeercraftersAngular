@@ -12,7 +12,7 @@
       </div>
 <div class="container-fluid mb-4">
   <div class="row">
-      <div class="col-3 mb-3 border rounded">
+      <div class="col-3 border rounded">
           <h3>Opis piwa</h3>
             <div>
               <strong>Styl: </strong>
@@ -38,35 +38,25 @@
       <div class="col border ml-3 mr-2 rounded">
           <h3>Receptura</h3>
           <strong>Zasyp</strong>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
+          <p *ngFor="let material of recipe?.materials">{{ material.name }} {{ material.count }}kg</p>
           <br>
-          <strong>Styl: Chmiele</strong>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
+          <strong>Chmiele</strong>
+          <p *ngFor="let hop of recipe?.hops">{{ hop.name }} {{ hop.count }}g</p>
           <br>
           <strong>Drożdże</strong>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
+          <p>{{ recipe?.yeast }}</p>
           <br>
       </div>
       <div class="col border rounded">
           <h3>Procedura</h3>
-          <h5><span class="label label-danger">Zacieranie</span></h5>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
+          <strong>Zacieranie</strong>
+          <p *ngFor="let mashing of recipe?.mashing">{{ mashing.count }}g {{ mashing.name }} {{ mashing.time }} min</p>
           <br>
-          <h5><span class="label label-danger">Warzenie</span></h5>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
+          <strong>Warzenie</strong>
+          <p *ngFor="let brewing of recipe?.brewing">{{ brewing.count }}g {{ brewing.name }} {{ brewing.time }} min</p>
           <br>
-          <h5><span class="label label-danger">Fermentacja</span></h5>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
-          <br>
-          <h5><span class="label label-danger">Rozlew</span></h5>
-          <p>Beer is my passion. </p>
-          <p>Beer is my passion. </p>
+          <strong>Fermentacja</strong>
+          <p *ngFor="let fermentation of recipe?.fermentation">{{ fermentation.count }}g {{ fermentation.name }} {{ fermentation.time }} dni</p>
           <br>
       </div>
     </div>
