@@ -1,4 +1,5 @@
 <div class="container mt-4">
+  <div [formGroup]="recipeForm">
       <form  [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <h3 class="text-center">Opis piwa</h3>
         <div class="border rounded p-3">
@@ -172,4 +173,5 @@
           <button class="btn btn-light btn-block" type="button" (click)="onClear()">Wyczyść</button>
         </div>
       </form>
+    </div>
     </div>

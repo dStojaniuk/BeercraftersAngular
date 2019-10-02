@@ -55,7 +55,7 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   onRecipeEdit() {
-    this.router.navigate(['']);
+    this.router.navigate(['users/recipes/edit/' + this.recipe.id]);
     this.alertify.message('Edycja przepisu');
   }
 

@@ -12,7 +12,7 @@ import { AuthService } from './services/auth.service';
 import { AlertifyService } from './services/alertify.service';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { RecipeCardComponent } from './recipes/recipe-card/recipe-card.component';
-import { RecipeDetailsComponent } from './recipes/recipe-card/recipe-details/recipe-details.component';
+import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { MembersComponent } from './members/members.component';
@@ -20,6 +20,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { HomeComponent } from './home/home.component';
 import { MemberDetailsComponent } from './members/member-card/member-details/member-details.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MemberDetailsComponent } from './members/member-card/member-details/mem
   ],
   providers: [
     AuthService,
-    AlertifyService
+    AlertifyService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })
