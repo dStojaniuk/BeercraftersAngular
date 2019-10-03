@@ -110,6 +110,18 @@ export class RecipeEditComponent implements OnInit {
           );
         }
       }
+      if (this.recipe.getValue().mashing) {
+        for (const mashing of this.recipe.getValue().mashing) {
+          recipeMashing.push(
+            new FormGroup({
+              name: new FormControl(mashing.name, Validators.required),
+              count: new FormControl(mashing.count, [
+                Validators.required,
+                Validators.pattern(/^[1-9]+[0-9]*$/)])
+            })
+          );
+        }
+      }
       if (this.recipe.getValue().brewing) {
         for (const brewing of this.recipe.getValue().brewing) {
           recipeBrewing.push(
