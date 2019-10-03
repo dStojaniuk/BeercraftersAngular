@@ -8,7 +8,7 @@ import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.
 import { MembersComponent } from './members/members.component';
 import { HomeComponent } from './home/home.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
-import { MemberDetailsComponent } from './members/member-card/member-details/member-details.component';
+import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [

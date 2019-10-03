@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 import { Recipe } from '../models/recipe';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class RecipeWebService {
@@ -23,6 +23,10 @@ export class RecipeWebService {
     });
 
     return this.recipe;
+  }
+
+  getUserRecipes(userId: number) {
+    return this.http.get<Recipe[]>(this.baseUserRecipeUrl + userId);
   }
 
   removeRecipe(bodyToSend: any) {
