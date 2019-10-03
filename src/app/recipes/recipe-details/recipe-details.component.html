@@ -3,12 +3,12 @@
       <div class="col-10">
           <h2>{{ recipe?.name | titlecase }}</h2>
       </div>
-      <div class="col-2" *ngIf="isUserLoggedRecipe">
+      <div class="col-2" *ngIf="isUserLogged">
         <button class="btn btn-secondary mr-1" (click)="onRecipeEdit()">Edytuj</button>
         <button class="btn btn-danger" (click)="onRecipeDelete()">Usuń</button>
       </div>
-      <div class="col-2 mt-3" *ngIf="!isUserLoggedRecipe">
-          <h5>Piwowar: {{ member?.username | titlecase }}</h5>
+      <div class="col-2 mt-3" *ngIf="!isUserLogged">
+          <h5>Piwowar: {{ username | titlecase }}</h5>
       </div>
 <div class="container-fluid mb-4">
   <div class="row">

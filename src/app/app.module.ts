@@ -21,6 +21,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { HomeComponent } from './home/home.component';
 import { MemberDetailsComponent } from './members/member-card/member-details/member-details.component';
 import { DataService } from './services/data.service';
+import { UserWebService } from './services/userWeb.service';
+import { RecipeWebService } from './services/recipeWeb.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { DataService } from './services/data.service';
   providers: [
     AuthService,
     AlertifyService,
-    DataService
+    DataService,
+    UserWebService,
+    RecipeWebService
   ],
   bootstrap: [AppComponent]
 })

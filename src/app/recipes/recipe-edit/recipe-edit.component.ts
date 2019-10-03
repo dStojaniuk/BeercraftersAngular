@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Params, ActivatedRoute } from '@angular/router';
+
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Router, Params, ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/models/recipe';
-import { DataService } from 'src/app/services/data.service';
+import { RecipeWebService } from 'src/app/services/recipeWeb.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -17,10 +17,10 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   editMode = false;
   id: any;
-  recipe: Recipe;
+  recipe: BehaviorSubject<Recipe> = new BehaviorSubject(null);
 
-  constructor(private data: DataService, private fb: FormBuilder, public authService: AuthService, private alertify: AlertifyService,
-              private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private recipeWebService: RecipeWebService, private fb: FormBuilder, private route: ActivatedRoute,
+              public authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -31,45 +31,34 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    const modelToSend = {
+    let bodyToSend = {
       ...this.recipeForm.value,
       userId: this.authService.currentUser.id
     };
 
     if (this.editMode) {
-      // this.updateRecipe(this.id, this.recipeForm.value);
+      bodyToSend = {
+        id: this.id,
+        ...bodyToSend
+      };
+
+      this.recipeWebService.updateRecipe(bodyToSend).subscribe(() => {
+        this.alertify.success('Zaktualizowano przepis!');
+      }, error => {
+        this.alertify.error(error.message);
+      });
     } else {
-      this.createRecipe(modelToSend);
+      this.recipeWebService.createRecipe(bodyToSend).subscribe(() => {
+        this.alertify.success('Utworzono przepis!');
+      }, error => {
+        this.alertify.error(error.message);
+      });
     }
-  }
-
-  private createRecipe(body: any) {
-    const header = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      })
-    };
-
-    const url = 'https://localhost:5001/userrecipe/';
-
-    this.http.post(url, body, header).subscribe(() => {
-      this.alertify.success('Utworzono przepis!');
-    }, error => {
-      this.alertify.error(error.message);
-    });
-
-    this.alertify.success('Zapisano');
-    console.log(body);
   }
 
   onClear() {
     this.recipeForm.reset();
     this.alertify.message('Wyczyszczono pola');
-  }
-
-  get materialsForm() {
-    return this.recipeForm.get('materials') as FormArray;
   }
 
   private initForm() {
@@ -87,22 +76,18 @@ export class RecipeEditComponent implements OnInit {
     const recipeFermentation = new FormArray([]);
 
     if (this.editMode) {
-      this.data.recipe.subscribe((data: Recipe) => {
-        if (data) {
-          this.recipe = data;
-        }
-      });
+      this.recipe = this.recipeWebService.getRecipeById(this.id);
 
-      recipeName = this.recipe.name;
-      recipeType = this.recipe.type;
-      recipeOriginalGravity = this.recipe.originalGravity;
-      recipeFinalGravity = this.recipe.finalGravity;
-      recipeAlcohol = this.recipe.alcohol;
-      recipeIbu = this.recipe.ibu;
-      recipeYeast = this.recipe.yeast;
+      recipeName = this.recipe.getValue().name;
+      recipeType = this.recipe.getValue().type;
+      recipeOriginalGravity = this.recipe.getValue().originalGravity;
+      recipeFinalGravity = this.recipe.getValue().finalGravity;
+      recipeAlcohol = this.recipe.getValue().alcohol;
+      recipeIbu = this.recipe.getValue().ibu;
+      recipeYeast = this.recipe.getValue().yeast;
 
-      if (this.recipe.materials) {
-        for (const material of this.recipe.materials) {
+      if (this.recipe.getValue().materials) {
+        for (const material of this.recipe.getValue().materials) {
           recipeMaterials.push(
             new FormGroup({
               name: new FormControl(material.name, Validators.required),
@@ -113,8 +98,8 @@ export class RecipeEditComponent implements OnInit {
           );
         }
       }
-      if (this.recipe.hops) {
-        for (const hop of this.recipe.hops) {
+      if (this.recipe.getValue().hops) {
+        for (const hop of this.recipe.getValue().hops) {
           recipeHops.push(
             new FormGroup({
               name: new FormControl(hop.name, Validators.required),
@@ -125,8 +110,8 @@ export class RecipeEditComponent implements OnInit {
           );
         }
       }
-      if (this.recipe.brewing) {
-        for (const brewing of this.recipe.brewing) {
+      if (this.recipe.getValue().brewing) {
+        for (const brewing of this.recipe.getValue().brewing) {
           recipeBrewing.push(
             new FormGroup({
               name: new FormControl(brewing.name, Validators.required),
@@ -140,8 +125,8 @@ export class RecipeEditComponent implements OnInit {
           );
         }
       }
-      if (this.recipe.fermentation) {
-        for (const fermentation of this.recipe.fermentation) {
+      if (this.recipe.getValue().fermentation) {
+        for (const fermentation of this.recipe.getValue().fermentation) {
           recipeFermentation.push(
             new FormGroup({
               name: new FormControl(fermentation.name, Validators.required),
@@ -180,6 +165,10 @@ export class RecipeEditComponent implements OnInit {
     this.addFermentation();
   }
 }
+
+  get materialsForm() {
+    return this.recipeForm.get('materials') as FormArray;
+  }
 
   addMaterial() {
     const material = this.fb.group({
