@@ -17,6 +17,8 @@ export class RecipeDetailsComponent implements OnInit {
   recipe: Recipe;
   username: string;
   isUserLogged: boolean;
+  stars: number[] = [1, 2, 3, 4, 5];
+  selectedValue: number;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
               private recipeWebService: RecipeWebService, private userWebService: UserWebService,
@@ -30,6 +32,11 @@ export class RecipeDetailsComponent implements OnInit {
         this.UserLoggedRecipe();
       });
     });
+  }
+
+  countStars(star) {
+    this.selectedValue = star;
+    console.log('Value of star', star);
   }
 
   onRecipeDelete() {
