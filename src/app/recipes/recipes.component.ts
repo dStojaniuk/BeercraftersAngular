@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../models/recipe';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+
+import { Recipe } from '../models/recipe';
+import { RecipeWebService } from '../services/recipeWeb.service';
 
 @Component({
   selector: 'app-recipes',
@@ -10,8 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecipesComponent implements OnInit {
   recipes: Recipe[];
+  isUserRecipes: boolean;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private recipeWebService: RecipeWebService, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params.id;
@@ -20,24 +23,21 @@ export class RecipesComponent implements OnInit {
       this.getRecipes();
     } else {
       this.getUserRecipes(id);
+      this.isUserRecipes = true;
     }
   }
 
   private getRecipes() {
-    this.http.get('https://localhost:5001/recipe').subscribe((response: Recipe[]) => {
+    this.recipeWebService.getRecipes().subscribe((response: Recipe[]) => {
       this.recipes = response;
-      console.log(response);
-
     }, error => {
       console.log(error);
     });
   }
 
   private getUserRecipes(id: any) {
-    this.http.get('https://localhost:5001/userrecipe/' + id).subscribe((response: Recipe[]) => {
+    this.recipeWebService.getUserRecipes(id).subscribe((response: Recipe[]) => {
       this.recipes = response;
-      console.log(response);
-
     }, error => {
       console.log(error);
     });

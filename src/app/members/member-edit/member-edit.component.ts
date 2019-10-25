@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { UserWebService } from 'src/app/services/userWeb.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -15,9 +17,9 @@ export class MemberEditComponent implements OnInit {
   editForm: FormGroup;
   jwtHelper = new JwtHelperService();
   user: User;
-  url = 'https://localhost:5001/users/';
 
-  constructor(private http: HttpClient, private router: Router, private auth: AuthService) { }
+  constructor(private userWebService: UserWebService, private router: Router, private auth: AuthService,
+              private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.user = this.auth.currentUser;
@@ -31,54 +33,30 @@ export class MemberEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Zapisano!');
-    this.saveChanges(this.editForm.value.userData);
-  }
-
-  onUserDelete() {
-    console.log('Usunięto użytkownika!');
-    this.removeMember(this.auth.currentUser.id);
-
-    localStorage.clear();
-    this.router.navigate(['/home']);
-  }
-
-  private saveChanges(model: any) {
-    const header = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      })
-    };
-
     const body = {
-      Id: this.user.id,
-      Description: model.description,
-      Username: model.username
+      ...this.editForm.value.userData,
+      id: this.user.id
     };
 
-    this.http.put(this.url, body, header).subscribe(response => {
-      console.log(response);
+    this.userWebService.updateUser(body).subscribe(response => {
+      if (response == null) {
+        this.alertify.success('Zapisano zmiany');
+      }
     }, error => {
-      console.log(error);
+      this.alertify.error('Wystąpił błąd!');
     });
   }
 
-  private removeMember(model: any) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }),
-      body: {
-        UserId: model
-      }
-    };
+  onUserDelete() {
+    this.alertify.confirm('Czy na pewno chcesz usunąć konto?', () => {
+      this.userWebService.removeUser(this.auth.currentUser.id).subscribe(response => {
+        this.alertify.error('Usunięto użytkownika');
+      }, error => {
+        this.alertify.error('Wystąpił błąd!');
+      });
 
-    this.http.delete(this.url, options).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log(error);
+      localStorage.clear();
+      this.router.navigate(['/home']);
     });
   }
 }

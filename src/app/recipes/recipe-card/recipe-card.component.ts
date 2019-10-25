@@ -8,6 +8,7 @@ import { Recipe } from 'src/app/models/recipe';
 })
 export class RecipeCardComponent implements OnInit {
   @Input() recipe: Recipe;
+  @Input() isUserRecipes: boolean;
 
   constructor() { }
 

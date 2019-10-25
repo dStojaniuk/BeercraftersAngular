@@ -1,9 +1,65 @@
-.jumbotron {
-  background-image: url("../../assets/home-cover.jpeg");
+.header {
+  height: 70vh;
+  background-image: url('../../assets/home-cover.jpeg');
   background-size: cover;
-  height: 500px;
+  background-position: top;
+  position: relative;
 }
 
-h1, p {
-  color: #fff;
+.text-box {
+  position: absolute;
+  top: 35%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.heading {
+  color: #ffffff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+}
+
+.heading-main {
+  display: block;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 25px;
+  animation: moveInLeft 1s ease-out;
+}
+
+.heading-sub {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 10px;
+  animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+  0% {
+      opacity: 0;
+      transform: translateX(-100px);
+  }
+  80% {
+      transform: translateX(10px);
+  }
+  100% {
+      opacity: 1;
+      transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+      opacity: 0;
+      transform: translateX(100px);
+  }
+  80% {
+      transform: translateX(-10px);
+  }
+  100% {
+      opacity: 1;
+      transform: translate(0);
+  }
 }
