@@ -1,41 +1,48 @@
 <div class="container mt-3">
   <div class="row">
-      <div class="col-10">
-          <h2>{{ recipe?.name | titlecase }}</h2>
-      </div>
-      <div class="col-2" *ngIf="isUserLogged">
-        <button class="btn btn-secondary mr-1" (click)="onRecipeEdit()">Edytuj</button>
-        <button class="btn btn-danger" (click)="onRecipeDelete()">Usuń</button>
-      </div>
-      <div class="col-2 mt-3" *ngIf="!isUserLogged">
-          <h5>Piwowar: {{ username | titlecase }}</h5>
-      </div>
-<div class="container-fluid mb-4">
-  <div class="row">
-      <div class="col-3 border rounded">
+    <div class="col-auto">
+      <h2>{{ recipe?.name | titlecase }}</h2>
+    </div>
+      <div class="col">
+        <ul class="list-inline rating-list d-inline-block" *ngFor="let star of stars">
+          <li (click)="countStars(star)" [ngClass]="{'selected': (star <= selectedValue)}">
+            <i class="fa fa-star"></i>
+          </li>
+        </ul>
+    </div>
+    <div class="col-2" *ngIf="isUserLogged">
+      <button class="btn btn-secondary mr-1" (click)="onRecipeEdit()">Edytuj</button>
+      <button class="btn btn-danger" (click)="onRecipeDelete()">Usuń</button>
+    </div>
+    <div class="col-2 mt-3" *ngIf="!isUserLogged">
+      <h5>Piwowar: {{ username | titlecase }}</h5>
+    </div>
+    <div class="container-fluid mb-4">
+      <div class="row">
+        <div class="col-3 border rounded">
           <h3>Opis piwa</h3>
-            <div>
-              <strong>Styl: </strong>
-              <p>{{ recipe?.type | titlecase }}</p>
-            </div>
-            <div>
-              <strong>Ekstrakt początkowy: </strong>
-              <p>{{ recipe?.originalGravity }} Plato</p>
-            </div>
-            <div>
-              <strong>Ekstrakt końcowy: </strong>
-              <p>{{ recipe?.finalGravity }} Plato</p>
-            </div>
-            <div>
-              <strong>Alkohol: </strong>
-              <p>{{ recipe?.alcohol }} % obj.</p>
-            </div>
-            <div>
-              <strong>IBU: </strong>
-              <p>{{ recipe?.ibu }}</p>
+          <div>
+            <strong>Styl: </strong>
+            <p>{{ recipe?.type | titlecase }}</p>
           </div>
-      </div>
-      <div class="col border ml-3 mr-2 rounded">
+          <div>
+            <strong>Ekstrakt początkowy: </strong>
+            <p>{{ recipe?.originalGravity }} Plato</p>
+          </div>
+          <div>
+            <strong>Ekstrakt końcowy: </strong>
+            <p>{{ recipe?.finalGravity }} Plato</p>
+          </div>
+          <div>
+            <strong>Alkohol: </strong>
+            <p>{{ recipe?.alcohol }} % obj.</p>
+          </div>
+          <div>
+            <strong>IBU: </strong>
+            <p>{{ recipe?.ibu }}</p>
+          </div>
+        </div>
+        <div class="col border ml-3 mr-2 rounded">
           <h3>Receptura</h3>
           <strong>Zasyp</strong>
           <p *ngFor="let material of recipe?.materials">{{ material.name }} {{ material.count }}kg</p>
@@ -46,8 +53,8 @@
           <strong>Drożdże</strong>
           <p>{{ recipe?.yeast }}</p>
           <br>
-      </div>
-      <div class="col border rounded">
+        </div>
+        <div class="col border rounded">
           <h3>Procedura</h3>
           <strong>Zacieranie</strong>
           <p *ngFor="let mashing of recipe?.mashing">{{ mashing.count }}g {{ mashing.name }} {{ mashing.time }} min</p>
@@ -56,10 +63,11 @@
           <p *ngFor="let brewing of recipe?.brewing">{{ brewing.count }}g {{ brewing.name }} {{ brewing.time }} min</p>
           <br>
           <strong>Fermentacja</strong>
-          <p *ngFor="let fermentation of recipe?.fermentation">{{ fermentation.count }}g {{ fermentation.name }} {{ fermentation.time }} dni</p>
+          <p *ngFor="let fermentation of recipe?.fermentation">{{ fermentation.count }}g {{ fermentation.name }}
+            {{ fermentation.time }} dni</p>
           <br>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
